@@ -12,14 +12,21 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+
+    mix.sass('app.scss')
+      .copy('node_modules/jquery/dist/jquery.js','public/js/jquery.js')
+      .copy('node_modules/bootstrap/dist/js/bootstrap.min.js','public/js');
 
     mix.styles([
       'app.css',
     ],null,'public/css');
-
     mix.version('public/css/all.css');
 
+    // mix.scripts([
+    //   '../../node_modules/jquery-latest/lib/node-jquery-latest.js',
+    //   '../../node_modules/bootstrap/dist/js/bootstrap.min.js',
+    // ],null,'public/js');
+    // mix.version('public/js/all.js');
     /*
     mix.styles([
       'vendor/normalize.css',
