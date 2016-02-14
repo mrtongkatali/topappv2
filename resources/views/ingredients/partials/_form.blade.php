@@ -5,6 +5,10 @@
 <div class="form">
 {!! Form::open(array('route' => array('ingredients.store'), 'method' => 'POST')) !!}
 
+  {!! Form::hidden('status', '', array('class' => 'form-control', 'id' => 'status')) !!}
+  {!! Form::hidden('ingredient_code', '', array('class' => 'form-control', 'id' => 'ingredient_code')) !!}
+
+
   {!! Form::label('ingredient_name', 'Name') !!}
   {!! Form::text('ingredient_name', '', array('class' => 'form-control', 'id' => 'ingredient_name')) !!}
 
