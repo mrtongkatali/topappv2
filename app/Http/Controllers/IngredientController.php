@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use \Auth;
 use App\Http\Requests\IngredientRequest;
 
+use App\Ingredient;
+
 
 class IngredientController extends Controller
 {
@@ -47,29 +49,28 @@ class IngredientController extends Controller
      */
     public function store(IngredientRequest $request)
     {
-        $name = $request->all();
-
-        dd($name);
+        Auth::user()->ingredients()->create($request->all());
+        return $request->all();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ingredient $ingredient)
     {
-        //
+        dd($ingredient);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ingredient $ingredient)
     {
         //
     }
@@ -78,10 +79,10 @@ class IngredientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Ingredient $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(IngredientRequest $request, Ingredient $ingredient)
     {
         //
     }
@@ -89,10 +90,10 @@ class IngredientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Ingredient $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ingredient $ingredient)
     {
         //
     }
