@@ -18,6 +18,9 @@ elixir(function(mix) {
       .copy('node_modules/bootstrap/dist/js/bootstrap.min.js','public/js');
 
     mix.styles([
+      'reset.css',
+      'onepcssgrid.css',
+      'style.css',
       'app.css',
     ],null,'public/css');
     mix.version('public/css/all.css');
