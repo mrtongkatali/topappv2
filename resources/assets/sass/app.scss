@@ -1,1 +1,28 @@
-//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$orange: #f7941d;
+$white: #ffffff;
+$red: #ff0000 ;
+
+.red {color:$red;}
+.item-description {font-style:italic;}
+
+.col12.last{
+  .btn-full-width {
+    width:100%;
+    margin-left:0;
+  }
+}
+.btn-orange {
+  background:$orange; color:$white;
+  &:hover {background:$orange; color:$white;}
+  &:active {background:$orange; color:$white;}
+  &:focus {background:$orange; color:$white;}
+  &:checked {background:$orange; color:$white;}
+}
+.inventory-wrapper {
+  margin-top: 80px;
+  ul.inventory {
+    li {overflow:visible;}
+  }
+}

@@ -11,7 +11,6 @@
     @include ('layouts.generic-nav')
 
     <div class="header">
-        <img src="{{ asset('img/top-logo-high-res.png') }}" width="100px" />
         <div class="burger-menu-wrapper">
             <a href="#" class="burger-menu"></a>
         </div>

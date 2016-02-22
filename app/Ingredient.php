@@ -15,8 +15,29 @@ class Ingredient extends Model
   }
 
   public function setIngredientCodeAttribute($value) {
-    $this->attributes['ingredient_code'] = ($value ? $value : str_random(20));
+
+    if($value) {
+      $vowels           = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", " ","_","-","%","!","@","#","$","`");
+      $generated        = str_replace($vowels, "", $value) . str_pad(rand(1,999999),7,0,STR_PAD_LEFT);
+      $ingredient_code  = substr(strtoupper(str_pad($generated,11,"X",STR_PAD_RIGHT)),0,11);
+
+      $this->attributes['ingredient_code'] = $ingredient_code;
+    }
+
   }
 
+  public function scopeActive($query)
+  {
+    return $query->where('status','=',1);
+  }
 
+  public function scopeHasStock($query)
+  {
+    return $query->where('stock_qty', '>=', 0);
+  }
+
+  public function getAllActiveIngredients()
+  {
+    return self::active()->hasStock()->get();
+  }
 }

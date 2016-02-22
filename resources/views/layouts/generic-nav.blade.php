@@ -1,4 +1,7 @@
 <nav class="side-nav">
+    <div class="logo-wrapper">
+        <img src="{{ asset('img/top-logo-high-res.png') }}" width="100px" />
+    </div>
     <ul>
         <li><a href="{{ url('/') }}">Home</a></li>
         <li><a href="{{ route('ingredients.index') }}">Ingredients</a></li>

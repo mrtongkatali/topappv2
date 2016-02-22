@@ -25,8 +25,8 @@ class IngredientController extends Controller
      */
     public function index()
     {
-
-        return view('ingredients.index');
+        $ingredients = Ingredient::getAllActiveIngredients();
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**
@@ -49,6 +49,9 @@ class IngredientController extends Controller
      */
     public function store(IngredientRequest $request)
     {
+        $request->merge(array('ingredient_code' => $request->input('ingredient_name')));
+
+        #dd($request->all());
         Auth::user()->ingredients()->create($request->all());
         return $request->all();
     }
