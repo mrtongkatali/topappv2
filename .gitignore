@@ -1,8 +1,10 @@
+/@database
+/@templates
 /vendor
 /node_modules
+/public/build/css/*
 Homestead.yaml
 Homestead.json
 .env
 .vagrant
 .DS_Store
-
