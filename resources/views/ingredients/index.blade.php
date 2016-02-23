@@ -1,13 +1,17 @@
 @extends('layouts.generic')
 
 @section('content')
+
+
+  @include('success.generic_form',$callback)
+
   <a href="{{ route('ingredients.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Ingredient</a>
 
   <div class="inventory-wrapper">
       <ul class="inventory">
           @foreach($ingredients as $i)
           <li>
-              <a href="#">
+              <a href="{{ route('ingredients.edit',[$i->id]) }}">
                   <p class="product-name col3">
                     <strong>{{ $i->ingredient_name }}</strong> <br/>
                     <small class="red">{{ $i->ingredient_code }}</small> <br/>
