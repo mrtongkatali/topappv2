@@ -24,8 +24,8 @@ class IngredientRequest extends Request
     public function rules()
     {
         return [
-            'ingredient_name' => 'required|max:255|min:5',
-            'description' => 'required',
+            'ingredient_name' => 'required|max:255|min:3',
+            //'description' => 'required',
         ];
     }
 }

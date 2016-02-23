@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use \Auth;
+use \Session;
 use App\Http\Requests\IngredientRequest;
 
 use App\Ingredient;
@@ -25,8 +26,13 @@ class IngredientController extends Controller
      */
     public function index()
     {
+        $callback = [];
+        if(session()->has('callback')) {
+          $callback =  Session::get('callback');
+        }
+
         $ingredients = Ingredient::getAllActiveIngredients();
-        return view('ingredients.index', compact('ingredients'));
+        return view('ingredients.index', compact('ingredients','callback'));
     }
 
     /**
@@ -36,9 +42,14 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        return view('ingredients.form')->with([
-          'view_data' => array("page_title" => "Create Ingredient"),
-        ]);
+        $view_data = array(
+          "ingredient"    => [],
+          "page_title"    => "Create New Ingredient",
+          "action"        => "post",
+          "submitBtnTxt"  => "Create",
+        );
+
+        return view('ingredients.form',compact('view_data'));
     }
 
     /**
@@ -51,9 +62,14 @@ class IngredientController extends Controller
     {
         $request->merge(array('ingredient_code' => $request->input('ingredient_name')));
 
-        #dd($request->all());
         Auth::user()->ingredients()->create($request->all());
-        return $request->all();
+
+        Session::flash('callback',[
+          "message"     => "Successfully created " . $request->input('ingredient_name'),
+          "is_success"  => true,
+        ]);
+
+        return redirect()->route('ingredients.index');
     }
 
     /**
@@ -75,7 +91,13 @@ class IngredientController extends Controller
      */
     public function edit(Ingredient $ingredient)
     {
-        //
+        $view_data = array(
+          "page_title"    => "Edit Ingredient - " . $ingredient->ingredient_name . " ({$ingredient->ingredient_code})",
+          "ingredient"    => $ingredient,
+          "action"        => "update",
+          "submitBtnTxt"  => "Update",
+        );
+        return view('ingredients.form', compact('view_data'));
     }
 
     /**
@@ -87,7 +109,15 @@ class IngredientController extends Controller
      */
     public function update(IngredientRequest $request, Ingredient $ingredient)
     {
-        //
+        $request->merge(array('ingredient_code' => ""));
+        $ingredient->update($request->all());
+
+        Session::flash('callback',[
+          "message"     => "Successfully updated " . $ingredient->ingredient_name,
+          "is_success"  => true,
+        ]);
+
+        return redirect()->route('ingredients.index');
     }
 
     /**
