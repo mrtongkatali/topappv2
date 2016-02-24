@@ -36,7 +36,7 @@ class Ingredient extends Model
     return $query->where('stock_qty', '>=', 0);
   }
 
-  public function getAllActiveIngredients()
+  public static function getAllActiveIngredients()
   {
     return Ingredient::active()->hasStock()->get();
   }
