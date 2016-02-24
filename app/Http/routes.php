@@ -30,3 +30,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('ingredients','IngredientController');
 });
+
+Route::group(['prefix'=>'ingredients/xhttp/','middleware' => 'web'], function () {
+  Route::get('_showIngredientList', [
+      'as' => 'xhttp.showIngredientList',
+      'uses' => 'IngredientController@_showIngredientList'
+  ]);
+});

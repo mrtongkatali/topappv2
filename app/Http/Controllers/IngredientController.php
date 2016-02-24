@@ -31,8 +31,7 @@ class IngredientController extends Controller
           $callback =  Session::get('callback');
         }
 
-        $ingredients = Ingredient::getAllActiveIngredients();
-        return view('ingredients.index', compact('ingredients','callback'));
+        return view('ingredients.index', compact('callback'));
     }
 
     /**
@@ -109,12 +108,12 @@ class IngredientController extends Controller
      */
     public function update(IngredientRequest $request, Ingredient $ingredient)
     {
-        $request->merge(array('ingredient_code' => ""));
+        $request->merge(array('ingredient_code' => ''));
         $ingredient->update($request->all());
 
         Session::flash('callback',[
-          "message"     => "Successfully updated " . $ingredient->ingredient_name,
-          "is_success"  => true,
+          'message'     => 'Successfully updated ' . $ingredient->ingredient_name,
+          'is_success'  => true,
         ]);
 
         return redirect()->route('ingredients.index');
@@ -128,6 +127,16 @@ class IngredientController extends Controller
      */
     public function destroy(Ingredient $ingredient)
     {
-        //
+      $ingredient->update(array('ingredient_code' => '', 'status'=> '2'));
+
+      return response()->json([
+        'is_success' => true,
+        'message'    => "Succesfully removed " . $ingredient->ingredient_name,
+      ]);
+    }
+
+    public function _showIngredientList() {
+      $ingredients = Ingredient::getAllActiveIngredients();
+      return view('ingredients.partials._ingredientList', compact('ingredients'));
     }
 }
