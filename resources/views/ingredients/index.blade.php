@@ -1,28 +1,42 @@
 @extends('layouts.generic')
 
 @section('content')
-
-
   @include('success.generic_form',$callback)
 
   <a href="{{ route('ingredients.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Ingredient</a>
 
   <div class="inventory-wrapper">
-      <ul class="inventory">
-          @foreach($ingredients as $i)
-          <li>
-              <a href="{{ route('ingredients.edit',[$i->id]) }}">
-                  <p class="product-name col3">
-                    <strong>{{ $i->ingredient_name }}</strong> <br/>
-                    <small class="red">{{ $i->ingredient_code }}</small> <br/>
-                    <small>{{ $i->description }}</small>
-                  </p>
-                  <p class="item-description"><span class="gray">Stock: </span>{{ $i->stock_qty }}</p>
-              </a>
-          </li>
-          @endforeach
-
-      </ul>
+      <div id="ingredient_wrapper"></div>
   </div>
-
 @endsection
+
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script>
+  function editIngredient(id) {
+    window.location.href = "/ingredients/"+id+"/edit";
+  }
+
+  function deleteIngredient(id) {
+    var token = "{{ csrf_token() }}";
+    $.ajax({
+        url: '/ingredients/'+id,
+        type: 'POST',
+        data: {_method: 'delete', _token :token},
+        success: function(result) {
+            // Do something with the result
+            $('#ingr_wrapper_'+id).remove();
+        },
+    });
+  }
+
+  function getAllIngredients() {
+    $('#ingredient_wrapper').html("Fetching result from server...")
+    $.get('/ingredients/xhttp/_showIngredientList',{}, function(data) {
+      $('#ingredient_wrapper').html(data);
+    });
+  }
+
+  $(document).ready(function($) {
+      getAllIngredients();
+  });
+</script>

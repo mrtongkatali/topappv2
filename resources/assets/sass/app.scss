@@ -26,3 +26,11 @@ $red: #ff0000 ;
     li {overflow:visible;}
   }
 }
+
+.inventory-wrapper li>div, .ordered-products-wrapper li>div, .products-list-wrapper li>div {
+    padding: 12px 12px 12px 0;
+    display: block;
+    overflow: auto;
+    color: #000;
+    cursor:pointer;
+}

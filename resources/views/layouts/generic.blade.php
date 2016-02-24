@@ -37,6 +37,7 @@
             $('.burger-menu-wrapper').toggleClass('active-burger-menu');
 
         });
+
     });
 </script>
 
