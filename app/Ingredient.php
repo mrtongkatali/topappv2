@@ -38,6 +38,6 @@ class Ingredient extends Model
 
   public function getAllActiveIngredients()
   {
-    return self::active()->hasStock()->get();
+    return Ingredient::active()->hasStock()->get();
   }
 }
