@@ -19,8 +19,9 @@
   {!! Form::textarea('description',null, array('class' => 'form-control', 'id' => 'description')) !!}
 
   <br/>
-  <a href="{{ route('ingredients.index') }}" class="btn btn-default pull-right btn-danger">Cancel</a>
+
   {!! Form::submit($submitBtnTxt, array('class'=>'btn btn-default pull-right btn-success')) !!}
+  <a href="{{ route('ingredients.index') }}" class="btn btn-default pull-right btn-danger">Cancel</a>
 
 {!! Form::close() !!}
 </div>

@@ -30,7 +30,7 @@
   }
 
   function getAllIngredients() {
-    $('#ingredient_wrapper').html("Fetching result from server...")
+    $('#ingredient_wrapper').html("<center>Fetching result from server...</center>")
     $.get('/ingredients/xhttp/_showIngredientList',{}, function(data) {
       $('#ingredient_wrapper').html(data);
     });

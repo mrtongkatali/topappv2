@@ -29,11 +29,20 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 
     Route::resource('ingredients','IngredientController');
+    Route::group(['prefix'=>'ingredients/xhttp/'], function () {
+      Route::get('_showIngredientList', [
+          'as' => 'xhttp.showIngredientList',
+          'uses' => 'IngredientController@_showIngredientList'
+      ]);
+    });
 });
 
-Route::group(['prefix'=>'ingredients/xhttp/','middleware' => 'web'], function () {
-  Route::get('_showIngredientList', [
-      'as' => 'xhttp.showIngredientList',
-      'uses' => 'IngredientController@_showIngredientList'
-  ]);
+Route::group(['middleware' => 'web'], function () {
+    Route::resource('products','ProductController');
+    Route::group(['prefix'=>'products/xhttp/'], function () {
+      Route::get('_getIngredientListSelection', [
+          'as' => 'xhttp.getIngredientListSelection',
+          'uses' => 'ProductController@_showIngredientListSelection'
+      ]);
+    });
 });
