@@ -40,7 +40,11 @@ Route::group(['middleware' => 'web'], function () {
 Route::group(['middleware' => 'web'], function () {
     Route::resource('products','ProductController');
     Route::group(['prefix'=>'products/xhttp/'], function () {
-      Route::get('_getIngredientListSelection', [
+      Route::get('_showProductList', [
+          'as' => 'xhttp.showProductList',
+          'uses' => 'ProductController@_showProductList'
+      ]);
+      Route::get('_getIngredientListSelection/{product_id}', [
           'as' => 'xhttp.getIngredientListSelection',
           'uses' => 'ProductController@_showIngredientListSelection'
       ]);

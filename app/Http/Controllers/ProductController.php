@@ -60,9 +60,9 @@ class ProductController extends Controller
             $array = array(
               "ingredient_id" => $value,
               "product_id"    => $product->id,
+              "qty"         => $request->input('qty_'.$value),
             );
             $recipe = Recipe::create($array);
-            print_r($recipe);
           endforeach;
         }
 
@@ -71,7 +71,7 @@ class ProductController extends Controller
           "is_success"  => true,
         ]);
 
-        //return redirect()->route('products.index');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -80,9 +80,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        dd($product);
     }
 
     /**
@@ -91,9 +91,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+      #dd($product->recipes);
+      $view_data = array(
+        "page_title"    => "Edit Product : " . $product->product_name,
+        "product"       => $product,
+        "action"        => "update",
+        "submitBtnTxt"  => "Update",
+      );
+
+      return view('products.form',compact('view_data'));
     }
 
     /**
@@ -103,7 +111,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -114,13 +122,37 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+      $product->update(array('status'=> '2'));
+
+      return response()->json([
+        'is_success' => true,
+        'message'    => "Succesfully removed " . $product->product_name,
+      ]);
     }
 
-    public function _showIngredientListSelection() {
-      $ingredients = Ingredient::getAllActiveIngredients();
-      return view('products.partials._ingredientListSelection', compact('ingredients'));
+    public function _showProductList() {
+      $products = Product::getAllActiveProduct();
+      return view('products.partials._productList', compact('products'));
+    }
+
+    public function _showIngredientListSelection($product_id) {
+      $recipes = [];
+      $recipe_array = [];
+      if($product_id) {
+        $recipes = Product::getAllProductRecipes($product_id);
+        foreach($recipes as $key=>$value):
+          $recipe_array[] = $value->id;
+        endforeach;
+      }
+
+      $data = array(
+        'ingredients'     => Ingredient::getAllActiveIngredients(),
+        'recipes'         => $recipes,
+        'recipe_array'    => $recipe_array,
+      );
+      
+      return view('products.partials._ingredientListSelection')->with($data);
     }
 }
