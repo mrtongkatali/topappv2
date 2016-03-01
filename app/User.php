@@ -28,4 +28,9 @@ class User extends Authenticatable
     {
       return $this->hasMany('App\Ingredient');
     }
+
+    public function products()
+    {
+      return $this->hasMany('App\Product');
+    }
 }
