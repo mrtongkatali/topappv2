@@ -18,4 +18,19 @@ class Product extends Model
     {
       return $query->where('status','=',1);
     }
+
+    public static function getAllActiveProduct()
+    {
+      return self::active()->get();
+    }
+
+    public function recipes()
+    {
+      return $this->hasMany('App\Recipe');
+    }
+
+    public static function getAllProductRecipes($id)
+    {
+      return self::find($id)->recipes()->get();
+    }
 }

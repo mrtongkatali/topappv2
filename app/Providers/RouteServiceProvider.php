@@ -31,6 +31,10 @@ class RouteServiceProvider extends ServiceProvider
           return \App\Ingredient::findOrFail($id);
         });
 
+        $router->bind('products', function($id) {
+          return \App\Product::findOrFail($id);
+        });
+
         //$router->model('ingredients','App\Ingredient');
     }
 
