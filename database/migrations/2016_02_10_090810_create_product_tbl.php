@@ -14,17 +14,12 @@ class CreateProductTbl extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('recipe_id')->unsigned();
             $table->string('product_name');
             $table->string('sku')->unique();
             $table->text('description');
             $table->integer('status');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
-
-            $table->foreign('recipe_id')
-                  ->references('id')
-                  ->on('recipes');
 
             $table->foreign('user_id')
                   ->references('id')
