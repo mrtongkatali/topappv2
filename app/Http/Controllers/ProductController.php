@@ -53,7 +53,25 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        dd($request->all());
+        $product =  Auth::user()->products()->create($request->all());
+
+        if($request->input('cb')) {
+          foreach($request->input('cb') as $key=>$value):
+            $array = array(
+              "ingredient_id" => $value,
+              "product_id"    => $product->id,
+            );
+            $recipe = Recipe::create($array);
+            print_r($recipe);
+          endforeach;
+        }
+
+        Session::flash('callback',[
+          "message"     => "Successfully created " . $request->input('product_name'),
+          "is_success"  => true,
+        ]);
+
+        //return redirect()->route('products.index');
     }
 
     /**
