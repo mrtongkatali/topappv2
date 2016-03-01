@@ -5,7 +5,7 @@
 
   {!! Form::open(array('route' => array('products.store'), 'method' => 'POST')) !!}
 
-  {!! Form::hidden('status',null, array('class' => 'form-control', 'id' => 'status')) !!}
+  {!! Form::hidden('status',1, array('class' => 'form-control', 'id' => 'status')) !!}
   <br/>
   {!! Form::label('product_name', 'Name') !!}<span class="red">*</span>
   {!! Form::text('product_name',null, array('class' => 'form-control', 'id' => 'product_name')) !!}
