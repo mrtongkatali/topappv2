@@ -2,10 +2,14 @@
 
 <br/>
 <div class="form">
+  @if ($action == "update")
+    {!! Form::model($product,['route' => array('products.update', $product->id), 'method' => 'PATCH' ]) !!}
+  @else
+    {!! Form::open(array('route' => array('products.store'), 'method' => 'POST')) !!}
+  @endif
 
-  {!! Form::open(array('route' => array('products.store'), 'method' => 'POST')) !!}
-
-  {!! Form::hidden('status',1, array('class' => 'form-control', 'id' => 'status')) !!}
+  {!! Form::text('id',null, array('class' => 'form-control', 'id' => 'id')) !!}
+  {!! Form::hidden('status',null, array('class' => 'form-control', 'id' => 'status')) !!}
   <br/>
   {!! Form::label('product_name', 'Name') !!}<span class="red">*</span>
   {!! Form::text('product_name',null, array('class' => 'form-control', 'id' => 'product_name')) !!}
@@ -30,15 +34,16 @@
 
 
   {!! Form::submit($submitBtnTxt, array('class'=>'btn btn-default pull-right btn-success')) !!}
-  <a href="{{ route('ingredients.index') }}" class="btn btn-default pull-right btn-danger">Cancel</a>
+  <a href="{{ route('products.index') }}" class="btn btn-default pull-right btn-danger">Cancel</a>
 
 {!! Form::close() !!}
 </div>
 
 <script>
   function getAllIngredientListSelection() {
+    var id = $('#id').val();
     $('#add_ingredients_wrapper').html("<center>Fetching result from server...</center>")
-    $.get('/products/xhttp/_getIngredientListSelection',{}, function(data) {
+    $.get('/products/xhttp/_getIngredientListSelection/'+id,{}, function(data) {
       $('#add_ingredients_wrapper').html(data);
     });
   }

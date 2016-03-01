@@ -11,31 +11,31 @@
 
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script>
-  function editIngredient(id) {
-    window.location.href = "/ingredients/"+id+"/edit";
+  function editProduct(id) {
+    window.location.href = "/products/"+id+"/edit";
   }
 
-  function deleteIngredient(id) {
+  function deleteProduct(id) {
     var token = "{{ csrf_token() }}";
     $.ajax({
-        url: '/ingredients/'+id,
+        url: '/products/'+id,
         type: 'POST',
         data: {_method: 'delete', _token :token},
         success: function(result) {
             // Do something with the result
-            $('#ingr_wrapper_'+id).remove();
+            $('#product_wrapper_'+id).remove();
         },
     });
   }
 
-  function getAllIngredients() {
+  function getAllProducts() {
     $('#products_wrapper').html("<center>Fetching result from server...</center>")
-    $.get('/ingredients/xhttp/_showIngredientList',{}, function(data) {
+    $.get('/products/xhttp/_showProductList',{}, function(data) {
       $('#products_wrapper').html(data);
     });
   }
 
   $(document).ready(function($) {
-      getAllIngredients();
+      getAllProducts();
   });
 </script>
