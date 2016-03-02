@@ -1,4 +1,4 @@
-@if ($ingredients)
+@if (count($ingredients) > 0)
 <ul class="inventory">
     @foreach($ingredients as $i)
       <li id="ingr_wrapper_{{$i->id}}">
