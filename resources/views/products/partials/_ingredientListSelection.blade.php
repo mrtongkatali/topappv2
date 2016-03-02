@@ -1,5 +1,4 @@
-@if ($ingredients)
-
+@if (count($ingredients) > 0)
   <table class="table table-striped">
     <tr>
       <th width="1%"><input id="check_all" type="checkbox" onclick="selectAllIngredient();"></th>
@@ -10,7 +9,7 @@
     </tr>
     @foreach($ingredients as $i)
       <tr>
-        <td width="1%"><input type="checkbox" checked="{{ (in_array($i->id,$recipe_array) ? 'true' : 'false') }}" id="cb_{{ $i->id }}" name="cb[{{ $i->id }}]" value="{{$i->id}}" class="ck_ingr" onclick="selectIngredient();"></td>
+        <td width="1%">{!! Form::checkbox('cb['.$i->id.']', $i->id, (in_array($i->id,$recipe_array) ? true : false), array('class' => 'form-control ck_ingr', 'id' => 'cb_'.$i->id, 'onclick'=> 'selectIngredient();')) !!}</td>
         <td onclick="selectRow({{ $i->id }});" width="20%">{{ $i->ingredient_name }}</td>
         <td onclick="selectRow({{ $i->id }});" width="20%">{{ $i->ingredient_code }}</td>
         <td onclick="selectRow({{ $i->id }});" width="39%">{{ $i->description }}</td>
@@ -28,11 +27,11 @@
 
 <script>
   function selectRow(id) {
-    //$('#cb_'+id).click();
+    $('#cb_'+id).click();
   }
 
   function selectAllIngredient() {
-    //$('.ck_ingr').prop('checked',$('#check_all:checked').length);
+    $('.ck_ingr').prop('checked',$('#check_all:checked').length);
   }
 
   function selectIngredient() {
