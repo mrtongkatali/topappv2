@@ -54,17 +54,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product =  Auth::user()->products()->create($request->all());
-
-        if($request->input('cb')) {
-          foreach($request->input('cb') as $key=>$value):
-            $array = array(
-              "ingredient_id" => $value,
-              "product_id"    => $product->id,
-              "qty"         => $request->input('qty_'.$value),
-            );
-            $recipe = Recipe::create($array);
-          endforeach;
-        }
+        Product::updateProductRecipe($product->id, $request);
 
         Session::flash('callback',[
           "message"     => "Successfully created " . $request->input('product_name'),
@@ -111,9 +101,19 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->all());
+        $product->recipes()->delete(); /* Delete all previous ingredients */
+
+        Product::updateProductRecipe($product->id, $request);
+
+        Session::flash('callback',[
+          'message'     => 'Successfully updated ' . $product->product_name,
+          'is_success'  => true,
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -125,7 +125,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
       $product->update(array('status'=> '2'));
-
+      $product->recipes()->delete(); /* Delete all previous ingredients */
+      
       return response()->json([
         'is_success' => true,
         'message'    => "Succesfully removed " . $product->product_name,
@@ -137,13 +138,13 @@ class ProductController extends Controller
       return view('products.partials._productList', compact('products'));
     }
 
-    public function _showIngredientListSelection($product_id) {
+    public function _showIngredientListSelection($product_id="") {
       $recipes = [];
       $recipe_array = [];
       if($product_id) {
         $recipes = Product::getAllProductRecipes($product_id);
         foreach($recipes as $key=>$value):
-          $recipe_array[] = $value->id;
+          $recipe_array[] = $value->ingredient_id;
         endforeach;
       }
 
@@ -152,7 +153,7 @@ class ProductController extends Controller
         'recipes'         => $recipes,
         'recipe_array'    => $recipe_array,
       );
-      
+
       return view('products.partials._ingredientListSelection')->with($data);
     }
 }
