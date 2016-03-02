@@ -40,4 +40,5 @@ class Ingredient extends Model
   {
     return self::active()->hasStock()->get();
   }
+
 }

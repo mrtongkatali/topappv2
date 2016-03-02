@@ -33,4 +33,17 @@ class Product extends Model
     {
       return self::find($id)->recipes()->get();
     }
+
+    public static function updateProductRecipe($product_id, $request) {
+      if($request->input('cb')) {
+        foreach($request->input('cb') as $key=>$value):
+          $array = array(
+            "ingredient_id" => $value,
+            "product_id"    => $product_id,
+            "qty"           => $request->input('qty_'.$value),
+          );
+          $recipe = Recipe::create($array);
+        endforeach;
+      }
+    }
 }

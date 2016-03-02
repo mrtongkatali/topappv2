@@ -44,7 +44,7 @@ Route::group(['middleware' => 'web'], function () {
           'as' => 'xhttp.showProductList',
           'uses' => 'ProductController@_showProductList'
       ]);
-      Route::get('_getIngredientListSelection/{product_id}', [
+      Route::get('_getIngredientListSelection/{product_id?}', [
           'as' => 'xhttp.getIngredientListSelection',
           'uses' => 'ProductController@_showIngredientListSelection'
       ]);
