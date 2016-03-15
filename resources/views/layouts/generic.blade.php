@@ -17,13 +17,11 @@
     </div>
 
     <div class="wrapper onepcssgrid-1200">
-        <section id="home">
-            <div class="onerow">
-                <div class="col12 last">
-                  @yield('content')
-                </div>
-            </div>
-        </section>
+      <section id="home">
+        <div class="container-fluid">
+          @yield('content')
+        </div>
+      </section>
     </div>
 </body>
 

@@ -2,10 +2,15 @@
 
 @section('content')
   @include('success.generic_form',$callback)
-  <a href="{{ route('products.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Product</a>
 
-  <div class="product-list-wrapper">
-      <div id="products_wrapper"></div>
+  <div class="row">
+    <a href="{{ route('products.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Product</a>
+    <div class="col-md-12">
+      <div class="product-wrapper">
+          <div id="products_wrapper"></div>
+      </div>
+    </div>
+
   </div>
 @endsection
 

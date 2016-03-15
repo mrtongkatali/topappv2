@@ -2,12 +2,17 @@
 
 @section('content')
   @include('success.generic_form',$callback)
+  <div class="row">
 
-  <a href="{{ route('ingredients.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Ingredient</a>
+    <a href="{{ route('ingredients.create') }}" class="btn btn-default btn-full-width btn-orange" role="button">Create New Ingredient</a>
+    <div class="col-md-12">
+      <div class="inventory-wrapper">
+          <div id="ingredient_wrapper"></div>
+      </div>
+    </div>
 
-  <div class="inventory-wrapper">
-      <div id="ingredient_wrapper"></div>
   </div>
+
 @endsection
 
 <script src="{{ asset('js/jquery.js') }}"></script>

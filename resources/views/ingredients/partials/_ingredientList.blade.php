@@ -1,21 +1,14 @@
 @if (count($ingredients) > 0)
-<ul class="inventory">
     @foreach($ingredients as $i)
-      <li id="ingr_wrapper_{{$i->id}}">
-          <!-- <a href="{{ route('ingredients.edit',[$i->id]) }}"> -->
-            <div>
-              <p class="product-name col3" onclick="editIngredient({{$i->id}})">
-                <strong>{{ $i->ingredient_name }}</strong> <br/>
-                <small class="red">{{ $i->ingredient_code }}</small> <br/>
-                <small>{{ $i->description }}</small>
-              </p>
-              <p class="item-description" onclick="editIngredient({{$i->id}})"><span class="gray">Stock: </span>{{ $i->stock_qty }}</p>
-              <p><a class="btn btn-danger" href="javascript:void(0);" onclick="deleteIngredient({{$i->id}})" role="button">Delete</a></p>
-            </div>
-          <!-- </a> -->
-      </li>
+      <div class="row list-wrapper" id="ingr_wrapper_{{$i->id}}">
+        <div class="col-md-3 title" onclick="editIngredient({{$i->id}})"><strong>{{ $i->ingredient_name }}</strong></div>
+        <div class="col-md-6 description" onclick="editIngredient({{$i->id}})">{{ $i->description }}</div>
+        <div class="col-md-3 action-bar">
+          <a class="btn btn-danger btn-medwidth" href="javascript:void(0);" onclick="deleteIngredient({{$i->id}})" role="button"><span class="glyphicon glyphicon-trash"></span></a>
+          <a class="btn btn-success btn-medwidth" href="javascript:void(0);" onclick="deleteIngredient({{$i->id}})" role="button"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+      </div>
     @endforeach
-</ul>
 @else
   <center>No data available</center>
 @endif

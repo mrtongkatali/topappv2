@@ -7,12 +7,11 @@ $red: #ff0000 ;
 .red {color:$red;}
 .item-description {font-style:italic;}
 
-.col12.last{
-  .btn-full-width {
-    width:100%;
-    margin-left:0;
-  }
+.btn-full-width {
+  width:100%;
+  margin-left:0;
 }
+.btn-medwidth { width:50px; min-height:34px; }
 .btn-orange {
   background:$orange; color:$white;
   &:hover {background:$orange; color:$white;}
@@ -20,19 +19,15 @@ $red: #ff0000 ;
   &:focus {background:$orange; color:$white;}
   &:checked {background:$orange; color:$white;}
 }
-.inventory-wrapper, .product-list-wrapper {
-  margin-top: 80px;
-  ul.inventory {
-    li {overflow:visible;}
+
+.inventory-wrapper, .product-wrapper {
+  .list-wrapper {
+    border-bottom:1px solid #ddd; padding:10px 10px;
+    >.title,>.description {line-height:1.5; font-size:18px;}
+    >.action-bar {padding-left:0;}
   }
 }
 
-.inventory-wrapper li>div, .ordered-products-wrapper li>div, .product-list-wrapper li>div {
-    padding: 12px 12px 12px 0;
-    display: block;
-    overflow: auto;
-    color: #000;
-    cursor:pointer;
-}
+
 
 textarea.description {height:100px;}
