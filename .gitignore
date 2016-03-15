@@ -1,4 +1,5 @@
 /@database
+/@templates
 /vendor
 /node_modules
 Homestead.yaml
