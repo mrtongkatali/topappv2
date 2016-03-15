@@ -12,7 +12,7 @@
 
     <div class="header">
         <div class="burger-menu-wrapper">
-            <a href="#" class="burger-menu"></a> 
+            <a href="#" class="burger-menu"></a>
         </div>
     </div>
 

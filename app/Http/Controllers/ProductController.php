@@ -15,6 +15,11 @@ use App\Ingredient;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -126,7 +131,7 @@ class ProductController extends Controller
     {
       $product->update(array('status'=> '2'));
       $product->recipes()->delete(); /* Delete all previous ingredients */
-      
+
       return response()->json([
         'is_success' => true,
         'message'    => "Succesfully removed " . $product->product_name,
